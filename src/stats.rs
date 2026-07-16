@@ -8,6 +8,10 @@ pub struct FolderStats {
     pub largest_file_name: String,
     pub largest_file_size: u64,
 
+    pub largest_files: Vec<(String, u64)>,
+
+    pub files_without_extension: usize,
+
     pub extensions: HashMap<String, usize>,
 }
 
@@ -20,6 +24,10 @@ impl FolderStats {
 
             largest_file_name: String::new(),
             largest_file_size: 0,
+
+            largest_files: Vec::new(),
+
+            files_without_extension: 0,
 
             extensions: HashMap::new(),
         }
