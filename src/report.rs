@@ -24,7 +24,8 @@ pub fn print_report(folder_path: &str, stats: &FolderStats) {
         format_size(stats.largest_file_size)
     );
 
-    println!("\nTop File Extensions");
+    println!();
+    println!("Top File Extensions");
     println!("------------------------------");
 
     let mut extensions: Vec<_> = stats.extensions.iter().collect();
