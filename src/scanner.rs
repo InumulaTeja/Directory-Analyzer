@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use walkdir::WalkDir;
 
 use crate::stats::FolderStats;
@@ -19,12 +21,19 @@ pub fn scan_folder(folder_path: &str) -> FolderStats {
 
                 stats.total_size += file_size;
 
-                // Check if this is the largest file
                 if file_size > stats.largest_file_size {
                     stats.largest_file_size = file_size;
                     stats.largest_file_name = entry.path().display().to_string();
                 }
             }
+
+            let extension = Path::new(entry.path())
+                .extension()
+                .and_then(|ext| ext.to_str())
+                .unwrap_or("No Extension")
+                .to_lowercase();
+
+            *stats.extensions.entry(extension).or_insert(0) += 1;
         } else if entry.file_type().is_dir() {
             stats.total_folders += 1;
         }
